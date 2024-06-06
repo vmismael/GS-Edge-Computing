@@ -1,0 +1,72 @@
+#include <Wire.h> 
+#include <LiquidCrystal_I2C.h>
+LiquidCrystal_I2C lcd(0x20,16,2);
+int trigger = 7;
+int echo = 8;
+float dist = 0;
+int led1 = 13;
+int led2 = 12;
+int led3 = 9;
+
+
+void setup(){
+  Serial.begin(9600);
+  pinMode(trigger,OUTPUT);
+  pinMode(echo,INPUT);
+  pinMode(led1,OUTPUT);
+  pinMode(led2,OUTPUT);
+  pinMode(led3,OUTPUT);
+  lcd.init();
+  lcd.backlight();
+  lcd.print("Quantidade Lixo");
+  lcd.setCursor(16,2);
+  
+}
+void loop(){
+  digitalWrite(trigger,LOW);
+  delayMicroseconds(5);
+  digitalWrite(trigger,HIGH);  
+  delayMicroseconds(10);      
+  digitalWrite(trigger,LOW); 
+  
+  dist=pulseIn(echo,HIGH);      
+  dist = dist/58;                 
+  Serial.print ("Distancia = ");
+  Serial.print (dist);         
+  Serial.println (" cm"); 
+  
+  //Serial.print("Distancia = " + String(dist) + " cm");
+         
+  delay (200); 
+  
+  if(dist<=40){
+   digitalWrite(led1, HIGH);
+    digitalWrite(led2, LOW);
+    digitalWrite(led3, LOW);
+    lcd.print("cheio");
+    
+  }
+  
+  else if(dist>40 && dist<=150){
+    
+   digitalWrite(led1, LOW);
+   digitalWrite(led2, HIGH);
+   digitalWrite(led3, LOW);
+    lcd.print("medio");
+    
+  	
+  }
+  else{
+   digitalWrite(led1, LOW);
+   digitalWrite(led2, LOW);
+   digitalWrite(led3, HIGH);  
+    lcd.print("vazio");
+    
+  }
+  lcd.setCursor(0,1);
+
+}                             
+
+
+
+
