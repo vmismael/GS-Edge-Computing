@@ -1,8 +1,10 @@
 # Projeto GS Edge Computing
 
 ## 🗒️ integrantes
-Renato Luiz Cordão - RM556403 
+Renato Luiz Cordão - RM556403
+
 Vitor Montemor Ismael - RM556024 
+
 Vitoria Fernandes Davi - RM556028 
 
 ## 🗒️ Descrição
